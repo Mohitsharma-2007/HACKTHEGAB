@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HacktheGab: Cyber Hygiene to Cyber Defense | July 30, 2025</title>
+    <meta name="description"
+        content="Join HacktheGab cybersecurity seminar with Satvik Sharma. Learn cyber defense fundamentals. Wednesday, July 30, 2025.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'light-blue': '#e0f2fe',
+                        'sky-blue': '#0ea5e9',
+                        'deep-blue': '#0284c7',
+                        'soft-gray': '#f8fafc',
+                        'text-gray': '#475569',
+                        'dark-blue': '#0c4a6e'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #ffffff 100%);
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .logo-animation {
+            animation: logoZoom 2s ease-out;
+        }
+
+        @keyframes logoZoom {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Page Breaking Sections */
+        .page-break {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Scroll Animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scroll-reveal-left.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scroll-reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scroll-reveal-right.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .stagger-animation>* {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stagger-animation.revealed>*:nth-child(1) {
+            animation: staggerFadeIn 0.6s ease forwards 0.1s;
+        }
+
+        .stagger-animation.revealed>*:nth-child(2) {
+            animation: staggerFadeIn 0.6s ease forwards 0.2s;
+        }
+
+        .stagger-animation.revealed>*:nth-child(3) {
+            animation: staggerFadeIn 0.6s ease forwards 0.3s;
+        }
+
+        .stagger-animation.revealed>*:nth-child(4) {
+            animation: staggerFadeIn 0.6s ease forwards 0.4s;
+        }
+
+        .stagger-animation.revealed>*:nth-child(5) {
+            animation: staggerFadeIn 0.6s ease forwards 0.5s;
+        }
+
+        @keyframes staggerFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Dividers */
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #0ea5e9, transparent);
+            margin: 4rem 0;
+            opacity: 0;
+            transform: scaleX(0);
+            transition: all 1s ease;
+        }
+
+        .section-divider.revealed {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: floatRandom 8s ease-in-out infinite;
+        }
+
+        @keyframes floatRandom {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(20px, -20px) rotate(90deg);
+            }
+
+            50% {
+                transform: translate(-15px, -30px) rotate(180deg);
+            }
+
+            75% {
+                transform: translate(-25px, 10px) rotate(270deg);
+            }
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #0ea5e9, #0284c7);
+            z-index: 9999;
+            transition: width 0.3s ease;
+        }
+
+        /* Video intro enhancements */
+        #video-intro {
+            cursor: pointer;
+        }
+
+        #video-intro:hover #click-indicator {
+            opacity: 1 !important;
+        }
+
+        /* Main content reveal after video */
+        body.video-completed .fade-in {
+            animation: fadeInDelayed 1s ease-in 0.5s both;
+        }
+
+        body.video-completed .floating {
+            animation: float 6s ease-in-out infinite, fadeInDelayed 1s ease-in 0.3s both;
+        }
+
+        @keyframes fadeInDelayed {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Video overlay text animations */
+        #video-overlay .text-center {
+            transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #title-line {
+            transform-origin: center;
+        }
+    </style>
+</head>
+
+<body class="gradient-bg">
+    <!-- Full Page Video Intro -->
+    <div id="video-intro" class="fixed inset-0 z-50 bg-black transition-all duration-1000 ease-in-out">
+        <video id="intro-video" class="w-full h-full object-cover" autoplay muted playsinline>
+            <source src="./CALL TO ACTION.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Elegant overlay with fade-in animation -->
+        <div id="video-overlay"
+            class="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/60 flex items-end justify-center pb-20 opacity-0 transition-opacity duration-2000">
+            <div class="text-center text-white transform translate-y-10 transition-transform duration-2000">
+                <div class="mb-4">
+                    <div id="title-line"
+                        class="w-16 h-1 bg-sky-blue mx-auto mb-4 transform scale-x-0 transition-transform duration-1000">
+                    </div>
+                    <h2 class="text-5xl font-bold mb-2 tracking-wider">HacktheGab</h2>
+                    <p class="text-xl font-light tracking-wide opacity-90">Cyber Hygiene to Cyber Defense</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subtle click indicator -->
+        <div id="click-indicator"
+            class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 text-sm opacity-0 transition-opacity duration-1000">
+            <div class="flex items-center space-x-2">
+                <div class="w-2 h-2 bg-white/60 rounded-full animate-pulse"></div>
+                <span>Click anywhere to continue</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div id="progress-bar" class="progress-bar"></div>
+
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <img src="./AEGIS CLUB.png" alt="Aegis Club" class="h-10 w-auto">
+                    <div>
+                        <h1 class="text-lg font-bold text-deep-blue">HacktheGab</h1>
+                        <p class="text-xs text-text-gray">Cyber Defense Seminar</p>
+                    </div>
+                </div>
+                <button id="register-btn"
+                    class="bg-sky-blue text-white px-6 py-2 rounded-lg font-semibold hover:bg-deep-blue transition-colors">
+                    Register Now
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="page-break pt-20">
+        <!-- Floating Elements -->
+        <div class="floating-element top-20 left-10">
+            <i class="fas fa-shield-alt text-sky-blue text-4xl"></i>
+        </div>
+        <div class="floating-element top-40 right-20">
+            <i class="fas fa-lock text-sky-blue text-3xl"></i>
+        </div>
+        <div class="floating-element bottom-32 left-20">
+            <i class="fas fa-bug text-sky-blue text-2xl"></i>
+        </div>
+
+        <div class="container mx-auto px-4 text-center">
+            <div class="floating">
+                <h1 class="text-5xl md:text-7xl font-bold text-deep-blue mb-6 fade-in">
+                    HacktheGab
+                </h1>
+            </div>
+            <h2 class="text-2xl md:text-4xl font-semibold text-text-gray mb-4 fade-in">
+                Cyber Hygiene to Cyber Defense
+            </h2>
+            <p class="text-lg md:text-xl text-text-gray mb-8 fade-in">
+                From Basics to the Battlefield
+            </p>
+
+            <!-- Event Details -->
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-8 max-w-2xl mx-auto mb-8 shadow-lg fade-in">
+                <div class="flex items-center justify-center mb-4">
+                    <i class="fas fa-calendar-alt text-sky-blue text-2xl mr-3"></i>
+                    <h3 class="text-xl font-semibold text-deep-blue">Event Details</h3>
+                </div>
+                <p class="text-lg text-text-gray mb-2">
+                    <i class="fas fa-clock text-sky-blue mr-2"></i>
+                    Wednesday, July 30, 2025 | 10:00 AM - 12:45 PM
+                </p>
+                <p class="text-lg text-text-gray mb-4">
+                    <i class="fas fa-globe text-sky-blue mr-2"></i>
+                    Online Event
+                </p>
+
+                <!-- Countdown Timer -->
+                <div id="countdown" class="grid grid-cols-4 gap-4 mb-6">
+                    <div class="text-center">
+                        <div id="days" class="text-3xl font-bold text-deep-blue">00</div>
+                        <div class="text-sm text-text-gray">Days</div>
+                    </div>
+                    <div class="text-center">
+                        <div id="hours" class="text-3xl font-bold text-deep-blue">00</div>
+                        <div class="text-sm text-text-gray">Hours</div>
+                    </div>
+                    <div class="text-center">
+                        <div id="minutes" class="text-3xl font-bold text-deep-blue">00</div>
+                        <div class="text-sm text-text-gray">Minutes</div>
+                    </div>
+                    <div class="text-center">
+                        <div id="seconds" class="text-3xl font-bold text-deep-blue">00</div>
+                        <div class="text-sm text-text-gray">Seconds</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center fade-in">
+                <button id="main-register-btn"
+                    class="bg-sky-blue text-white px-8 py-4 rounded-xl text-xl font-bold hover:bg-deep-blue transition-all hover-scale shadow-lg">
+                    <i class="fas fa-rocket mr-2"></i>Register Now
+                </button>
+                <button
+                    class="border-2 border-sky-blue text-sky-blue px-8 py-4 rounded-xl text-xl font-bold hover:bg-sky-blue hover:text-white transition-all hover-scale">
+                    <i class="fas fa-info-circle mr-2"></i>Learn More
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div class="section-divider scroll-reveal"></div>
+
+    <!-- Event Details Section -->
+    <section class="py-20 bg-white/50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-deep-blue mb-16 scroll-reveal">What You'll Learn</h2>
+
+            <!-- Event Timeline -->
+            <div class="max-w-4xl mx-auto mb-16 scroll-reveal">
+                <div class="bg-white rounded-2xl shadow-xl p-8">
+                    <h3 class="text-2xl font-bold text-deep-blue mb-8 text-center">Event Schedule</h3>
+                    <div class="space-y-6 stagger-animation">
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="bg-sky-blue text-white rounded-full w-12 h-12 flex items-center justify-center font-bold">
+                                1
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-deep-blue">Opening & Introduction</h4>
+                                <p class="text-text-gray">10:00 AM - 10:15 AM</p>
+                                <p class="text-sm text-text-gray mt-1">Welcome and overview of cybersecurity landscape
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="bg-sky-blue text-white rounded-full w-12 h-12 flex items-center justify-center font-bold">
+                                2
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-deep-blue">Cyber Hygiene Fundamentals</h4>
+                                <p class="text-text-gray">10:15 AM - 11:00 AM</p>
+                                <p class="text-sm text-text-gray mt-1">Essential security practices, password
+                                    management, and basic threat awareness</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="bg-sky-blue text-white rounded-full w-12 h-12 flex items-center justify-center font-bold">
+                                3
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-deep-blue">Threat Analysis & Detection</h4>
+                                <p class="text-text-gray">11:00 AM - 11:45 AM</p>
+                                <p class="text-sm text-text-gray mt-1">Understanding common threats, malware analysis,
+                                    and detection techniques</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="bg-sky-blue text-white rounded-full w-12 h-12 flex items-center justify-center font-bold">
+                                4
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-deep-blue">Blue Team Defense Strategies</h4>
+                                <p class="text-text-gray">11:45 AM - 12:30 PM</p>
+                                <p class="text-sm text-text-gray mt-1">SOC operations, incident response, and defensive
+                                    cybersecurity measures</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="bg-sky-blue text-white rounded-full w-12 h-12 flex items-center justify-center font-bold">
+                                5
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-deep-blue">Q&A & Networking</h4>
+                                <p class="text-text-gray">12:30 PM - 12:45 PM</p>
+                                <p class="text-sm text-text-gray mt-1">Interactive session with the speaker and
+                                    networking opportunities</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Takeaways -->
+            <div class="grid md:grid-cols-3 gap-8 stagger-animation">
+                <div class="text-center p-6 bg-white rounded-2xl shadow-lg hover-scale scroll-reveal-left">
+                    <i class="fas fa-shield-alt text-sky-blue text-4xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-deep-blue mb-3">Cyber Defense</h3>
+                    <p class="text-text-gray">Master essential cybersecurity defense strategies and SOC operations.</p>
+                </div>
+                <div class="text-center p-6 bg-white rounded-2xl shadow-lg hover-scale scroll-reveal">
+                    <i class="fas fa-search text-sky-blue text-4xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-deep-blue mb-3">Threat Analysis</h3>
+                    <p class="text-text-gray">Learn to identify, analyze, and respond to cybersecurity threats.</p>
+                </div>
+                <div class="text-center p-6 bg-white rounded-2xl shadow-lg hover-scale scroll-reveal-right">
+                    <i class="fas fa-users text-sky-blue text-4xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-deep-blue mb-3">Blue Teaming</h3>
+                    <p class="text-text-gray">Understand defensive security measures and incident response.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div class="section-divider scroll-reveal"></div>
+
+    <!-- Speaker Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-deep-blue mb-16 scroll-reveal">Featured Speaker</h2>
+            <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8 scroll-reveal">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="text-center scroll-reveal-left">
+                        <img src="./SATVIK.jpeg" alt="Satvik Sharma"
+                            class="w-64 h-64 rounded-full mx-auto mb-4 shadow-lg">
+                    </div>
+                    <div class="scroll-reveal-right">
+                        <h3 class="text-3xl font-bold text-deep-blue mb-4">Satvik Sharma</h3>
+                        <p class="text-lg text-sky-blue mb-4 font-semibold">CompTIA Security+ Certified Cybersecurity
+                            Researcher</p>
+
+                        <div class="space-y-3 text-text-gray mb-6">
+                            <p class="flex items-center">
+                                <i class="fas fa-certificate text-sky-blue mr-2"></i>
+                                CompTIA Security+ Certified
+                            </p>
+                            <p class="flex items-center">
+                                <i class="fas fa-trophy text-sky-blue mr-2"></i>
+                                Top 10% Ranked on TryHackMe
+                            </p>
+                            <p class="flex items-center">
+                                <i class="fas fa-briefcase text-sky-blue mr-2"></i>
+                                GPCSSI Intern 2025
+                            </p>
+                            <p class="flex items-center">
+                                <i class="fas fa-users text-sky-blue mr-2"></i>
+                                Former GDG On Campus Lead at IIMT
+                            </p>
+                            <p class="flex items-center">
+                                <i class="fas fa-microphone text-sky-blue mr-2"></i>
+                                Technical Speaker & Mentor at Hiked.in
+                            </p>
+                        </div>
+
+                        <p class="text-text-gray mb-6">
+                            Satvik is a passionate SOC/network security enthusiast specializing in threat analysis, blue
+                            teaming, and community learning.
+                            Join him as he shares real-world insights from cybersecurity research and practical defense
+                            strategies.
+                        </p>
+
+                        <div class="flex justify-center md:justify-start">
+                            <a href="https://www.linkedin.com/in/satviksharma23/" target="_blank"
+                                class="text-sky-blue hover:text-deep-blue transition-colors flex items-center space-x-2 bg-light-blue px-4 py-2 rounded-lg hover:bg-sky-blue hover:text-white">
+                                <i class="fab fa-linkedin text-2xl"></i>
+                                <span class="font-medium">Connect on LinkedIn</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Section Divider -->
+    <div class="section-divider scroll-reveal"></div>
+
+    <!-- Registration Section -->
+    <section id="registration" class="page-break bg-gradient-to-r from-light-blue to-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold text-deep-blue mb-8 scroll-reveal">Register Now</h2>
+            <p class="text-xl text-text-gray mb-12 scroll-reveal">Secure your spot for this exclusive cybersecurity
+                seminar</p>
+
+            <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8 scroll-reveal">
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold text-deep-blue mb-4">Quick Registration</h3>
+                    <p class="text-text-gray mb-6">Scan the QR code or click the button below to register via Google
+                        Forms</p>
+
+                    <!-- QR Code -->
+                    <div class="w-48 h-48 mx-auto rounded-lg mb-6 shadow-lg">
+                        <img src="./QR.png" alt="Registration QR Code" class="w-full h-full object-contain rounded-lg">
+                    </div>
+
+                    <!-- Registration Button -->
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdEbEercXTyMxlwPVh16t8H1XisT2PCVxeIkL_6Kg1qRkL13g/viewform"
+                        id="google-form-btn" target="_blank"
+                        class="inline-block bg-sky-blue text-white px-10 py-4 rounded-xl text-xl font-bold hover:bg-deep-blue transition-all hover-scale shadow-lg">
+                        <i class="fas fa-external-link-alt mr-2"></i>Open Registration Form
+                    </a>
+
+                    <p class="text-sm text-text-gray mt-4">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        Registration closes 1 hour before the event
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-deep-blue text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <img src="./AEGIS CLUB.png" alt="Aegis Club" class="h-12 mx-auto mb-4">
+            <p class="text-lg mb-2">HacktheGab: Cyber Hygiene to Cyber Defense</p>
+            <p class="text-sm opacity-80 mb-4">Wednesday, July 30, 2025 | 10:00 AM - 12:45 PM</p>
+            <p class="text-sm opacity-60">&copy; 2025 Aegis Club. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Loading screen
+        window.addEventListener('load', function () {
+            setTimeout(() => {
+                document.getElementById('loading-screen').classList.add('hidden');
+            }, 2000);
+        });
+
+        // Countdown timer
+        function initCountdown() {
+            const targetDate = new Date('2025-07-30T10:00:00').getTime();
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                if (distance < 0) {
+                    document.getElementById('countdown').innerHTML = '<div class="col-span-4 text-xl text-deep-blue font-bold">Event Started!</div>';
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = String(days).padStart(2, '0');
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+
+        // Smooth scrolling
+        function scrollToRegistration() {
+            document.getElementById('registration').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Scroll Animations
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all scroll reveal elements
+            document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .stagger-animation, .section-divider').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Progress Bar
+        function updateProgressBar() {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('progress-bar').style.width = scrollPercent + '%';
+        }
+
+        // Parallax Effect
+        function initParallax() {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const parallaxElements = document.querySelectorAll('.parallax-bg');
+
+                parallaxElements.forEach(element => {
+                    const speed = 0.5;
+                    element.style.transform = `translateY(${scrolled * speed}px)`;
+                });
+            });
+        }
+
+        // Video Intro Handler
+        function initVideoIntro() {
+            const videoIntro = document.getElementById('video-intro');
+            const introVideo = document.getElementById('intro-video');
+            const videoOverlay = document.getElementById('video-overlay');
+            const titleLine = document.getElementById('title-line');
+            const clickIndicator = document.getElementById('click-indicator');
+
+            if (!videoIntro || !introVideo) return;
+
+            // Show overlay after 2 seconds
+            setTimeout(() => {
+                videoOverlay.style.opacity = '1';
+                videoOverlay.querySelector('.text-center').style.transform = 'translateY(0)';
+
+                // Animate title line
+                setTimeout(() => {
+                    titleLine.style.transform = 'scaleX(1)';
+                }, 500);
+
+                // Show click indicator after video overlay
+                setTimeout(() => {
+                    clickIndicator.style.opacity = '1';
+                }, 1500);
+            }, 2000);
+
+            // Auto-hide video when it ends
+            introVideo.addEventListener('ended', hideVideoIntro);
+
+            // Click anywhere to skip
+            videoIntro.addEventListener('click', hideVideoIntro);
+
+            // Hide video intro with cool animation
+            function hideVideoIntro() {
+                videoIntro.style.transform = 'scale(1.1)';
+                videoIntro.style.opacity = '0';
+
+                setTimeout(() => {
+                    videoIntro.style.display = 'none';
+                    // Start main page animations
+                    document.body.classList.add('video-completed');
+                }, 1000);
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function () {
+            initVideoIntro();
+            initCountdown();
+            initScrollAnimations();
+            initParallax();
+
+            // Register buttons - scroll to registration section
+            const registerBtn = document.getElementById('register-btn');
+            const mainRegisterBtn = document.getElementById('main-register-btn');
+
+            if (registerBtn) {
+                registerBtn.addEventListener('click', scrollToRegistration);
+            }
+
+            if (mainRegisterBtn) {
+                mainRegisterBtn.addEventListener('click', scrollToRegistration);
+            }
+
+            // Progress bar update on scroll
+            window.addEventListener('scroll', updateProgressBar);
+
+            console.log('HacktheGab registration page loaded successfully');
+        });
+    </script>
+</body>
+
+</html>
